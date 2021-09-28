@@ -10,14 +10,14 @@ bag_of_words = list()
 
 SENTIMENT = 1
 training_set = [
-    ['I hate pizza', 'negative'],
-    ['I hate this weather', 'negative'],
-    ['Omg how I love pizza', 'positive'],
-    ['Today is a nice day', 'positive'],
-    ['No, it is not nice', 'negative'],
-    ['that is a really nice art', 'positive'],
-    ['No friend, I don\'t hate you :)', 'positive'],
-    ['pizza is everything', 'positive'],
+    ['Eu odeio pizza', 'negative'],
+    ['Eu odeio esse clima', 'negative'],
+    ['Mds como eu amo pizza', 'positive'],
+    ['Hoje é um bom dia', 'positive'],
+    ['Não, isso não é bom', 'negative'],
+    ['essa é uma arte legal', 'positive'],
+    ['Não amigo, eu não te odeio :)', 'positive'],
+    ['pizza é tudo', 'positive'],
     ['Pizza pizza pizza! <3', 'positive']
     ]
 
@@ -73,15 +73,12 @@ for registered_word in bag_of_words:
     total_positive_words_registered += registered_word[POSITIVE_OCCURRENCES]
     total_negative_word_registered += registered_word[NEGATIVE_OCCURRENCES]
 
-print("TOTAL DE PALAVRAS POSITIVAS REGISTRADAS :", total_positive_words_registered)
-print("TOTAL DE PALAVRAS NEGATIVAS REGISTRADAS :", total_negative_word_registered)
-
 for registered_word in bag_of_words:
     registered_word[POSITIVE_TENDENCY] = registered_word[POSITIVE_OCCURRENCES] / total_positive_words_registered
     registered_word[NEGATIVE_TENDENCY] = registered_word[NEGATIVE_OCCURRENCES] / total_negative_word_registered
 
 # Testing
-given_text = "I hate pizza"
+given_text = "Eu amo pizza"
 
 positive_probability = positive_initial_guess
 negative_probability = negative_initial_guess
@@ -91,7 +88,6 @@ for word in given_text.upper().split():
         if word == registered_word[WORD]:
             positive_probability = positive_probability * registered_word[POSITIVE_TENDENCY]
             negative_probability = negative_probability * registered_word[NEGATIVE_TENDENCY]
-    print(f"word: {word} positive_prob: {positive_probability} - negative_prob: {negative_probability}")
 
 classification = 'neutral'
 
@@ -101,11 +97,3 @@ elif negative_probability > positive_probability:
     classification = 'negative'
 
 print(given_text, " - Classification: ", classification)
-print('-' * 30)
-print('Positive: ', positive_probability)
-print('Negative: ', negative_probability)
-print('-' * 30)
-print(f'Initial guesses: positive - {positive_initial_guess} | negative - {negative_initial_guess}')
-print('-' * 30)
-for registered_word in bag_of_words:
-    print(registered_word)
